@@ -1,0 +1,95 @@
+<script type="text/javascript">
+  RED.nodes.registerType('jira-edit-issue', {
+    category: 'Jira',
+    color: '#356ab9',
+    icon: 'jira.svg',
+    defaults: {
+      name: {value: null},
+      server: {value: "", type: "jira-server", required: true},
+      issue: {value: ""},
+      fields: {value: null},
+      properties: {value: null},
+      historyMetadata: {value: null},
+      update: {value: null}
+    },
+    outputLabels: ["success", "error"],
+    inputs: 1,
+    outputs: 2,
+    label: function () {
+      return this.name || "edit issue";
+    },
+    paletteLabel: 'edit issue'
+  });
+</script>
+
+<script type="text/html" data-template-name="jira-edit-issue">
+  <div class="form-row">
+    <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+    <input type="text" id="node-input-name" placeholder="Name">
+  </div>
+
+  <div class="form-row">
+    <label for="node-input-server"><i class="fa fa-tag"></i> Server</label>
+    <input type="text" id="node-input-server">
+  </div>
+
+  <hr />
+
+  <div class="form-row">
+    <label for="node-input-issue"><i class="fa fa-hashtag"></i> Issue</label>
+    <input type="text" id="node-input-issue" placeholder="msg.issue">
+  </div>
+
+</script>
+
+<script type="text/html" data-help-name="jira-edit-issue">
+  <h3>Details</h3>
+  <p>Edits an issue. Issue properties may be updated as part of the edit. Please note that issue transition will be ignored as it is not supported yet.</p>
+
+  <h3>Inputs</h3>
+  <dl class="message-properties">
+    <dt>msg.issue
+      <span class="property-type">string</span>
+    </dt>
+    <dd> The ID or key of the issue.</dd>
+
+    <dt class="optional">msg.fields
+      <span class="property-type">string | object</span>
+    </dt>
+    <dd> List of issue screen fields to update, specifying the sub-field to update and its value for each field.</dd>
+
+    <dt class="optional">msg.properties
+      <span class="property-type">string | object</span>
+    </dt>
+    <dd> Details of issue properties to be add or update.</dd>
+
+    <dt class="optional">msg.historyMetadata
+      <span class="property-type">string | object</span>
+    </dt>
+    <dd> Additional issue history details.</dd>
+
+    <dt class="optional">msg.update
+      <span class="property-type">string | object</span>
+    </dt>
+    <dd> A Map containing the field name and a list of operations to perform on the issue screen field. Note that fields included in here cannot be included in <code>fields</code>.</dd>
+  </dl>
+
+  <h3>Outputs</h3>
+  <ol class="node-ports">
+    <li>Success
+      <dl class="message-properties">
+        <dt>msg.payload <span class="property-type">object</span></dt>
+        <dd>The modified issue.</dd>
+      </dl>
+    </li>
+    <li>Error
+      <dl class="message-properties">
+        <dt>msg.error <span class="property-type">string</span></dt>
+        <dd>the error that occurred.</dd>
+      </dl>
+    </li>
+  </ol>
+
+  <h3>API Reference</h3>
+  <a href="https://developer.atlassian.com/cloud/jira/platform/rest/v2/api-group-issues/#api-rest-api-2-issue-issueidorkey-put">https://developer.atlassian.com/cloud/jira/platform/rest/v2/api-group-issues/#api-rest-api-2-issue-issueidorkey-put</a>
+</script>

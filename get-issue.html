@@ -1,0 +1,93 @@
+<script type="text/javascript">
+  RED.nodes.registerType('jira-get-issue', {
+    category: 'Jira',
+    color: '#356ab9',
+    icon: 'jira.svg',
+    defaults: {
+      name: {value: null},
+      server: {value: "", type: "jira-server", required: true},
+      issue: {value: ""},
+      fields: {value: null},
+      properties: {value: null},
+    },
+    outputLabels: ["success", "error"],
+    inputs: 1,
+    outputs: 2,
+    label: function () {
+      return this.name || "get issue";
+    },
+    paletteLabel: 'get issue'
+  });
+</script>
+
+<script type="text/html" data-template-name="jira-get-issue">
+  <div class="form-row">
+    <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+    <input type="text" id="node-input-name" placeholder="Name">
+  </div>
+
+  <div class="form-row">
+    <label for="node-input-server"><i class="fa fa-tag"></i> Server</label>
+    <input type="text" id="node-input-server">
+  </div>
+
+  <hr />
+
+  <div class="form-row">
+    <label for="node-input-issue"><i class="fa fa-hashtag"></i> Issue</label>
+    <input type="text" id="node-input-issue" placeholder="msg.issue">
+  </div>
+
+  <div class="form-row">
+    <label for="node-input-fields"><i class="fa fa-list-alt"></i> Fields</label>
+    <input type="text" id="node-input-fields" placeholder="msg.fields">
+  </div>
+
+  <div class="form-row">
+    <label for="node-input-properties"><i class="fa fa-list-alt"></i> Properties</label>
+    <input type="text" id="node-input-properties" placeholder="msg.properties">
+  </div>
+
+</script>
+
+<script type="text/html" data-help-name="jira-get-issue">
+  <h3>Details</h3>
+  <p>Returns the details for an issue.</p>
+
+  <h3>Inputs</h3>
+  <dl class="message-properties">
+    <dt>msg.issue
+      <span class="property-type">string</span>
+    </dt>
+    <dd> The ID or key of the issue.</dd>
+
+    <dt class="optional">msg.fields
+      <span class="property-type">string</span>
+    </dt>
+    <dd> A comma-separated list of issue fields to return for the issue</dd>
+
+    <dt class="optional">msg.properties
+      <span class="property-type">string</span>
+    </dt>
+    <dd> A comma-separated list of issue properties to return for the issue</dd>
+  </dl>
+
+  <h3>Outputs</h3>
+  <ol class="node-ports">
+    <li>Success
+      <dl class="message-properties">
+        <dt>msg.payload <span class="property-type">object</span></dt>
+        <dd>Details about an issue.</dd>
+      </dl>
+    </li>
+    <li>Error
+      <dl class="message-properties">
+        <dt>msg.error <span class="property-type">string</span></dt>
+        <dd>the error that occurred.</dd>
+      </dl>
+    </li>
+  </ol>
+
+  <h3>API Reference</h3>
+  <a href="https://developer.atlassian.com/cloud/jira/platform/rest/v2/api-group-issues/#api-rest-api-2-issue-issueidorkey-get">https://developer.atlassian.com/cloud/jira/platform/rest/v2/api-group-issues/#api-rest-api-2-issue-issueidorkey-get</a>
+</script>

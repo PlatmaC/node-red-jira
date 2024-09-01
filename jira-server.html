@@ -1,0 +1,45 @@
+<script type="text/javascript">
+  RED.nodes.registerType("jira-server", {
+    category: "config",
+    credentials: {
+      apiUrl: {type: "text", required: true},
+      apiEmail: {type: "text", required: true},
+      apiKey: {type: "password", required: true},
+    },
+    defaults: {
+      name: {value: "", required: true}
+    },
+    label: function () {
+      return this.name;
+    }
+  });
+</script>
+
+<script type="text/html" data-template-name="jira-server">
+  <div class="form-row">
+    <label for="node-config-input-name"><i class="fa fa-bookmark"></i> Server name</label>
+    <input type="text" id="node-config-input-name">
+  </div>
+  <div class="form-row">
+    <label for="node-config-input-apiUrl"><i class="fa fa-link"></i> API URL</label>
+    <input type="text" id="node-config-input-apiUrl" placeholder="https://something.atlassian.net">
+  </div>
+  <div class="form-row">
+    <label for="node-config-input-apiEmail"><i class="fa fa-at"></i> User mail</label>
+    <input type="text" id="node-config-input-apiEmail" placeholder="https://something.atlassian.net">
+  </div>
+  <div class="form-row">
+    <label for="node-config-input-apiKey"><i class="fa fa-key"></i> User Token</label>
+    <input type="text" id="node-config-input-apiKey">
+  </div>
+</script>
+
+<script type="text/html" data-help-name="jira-server">
+  <p>Access rights for a specific jira cloud instance.</p>
+  <h4>API URL</h4>
+  <p>Base path of the API, for example: <code>https://something.atlassian.net</code>, no trailing slash.</p>
+  <h4>User mail</h4>
+  <p>The email of the user you created an API token for, required for authentication.</p>
+  <h4>API Key</h4>
+  <p>The access token that is used to authenticate the API requests. Make sure the corresponding user has sufficient permission to call the respective endpoints.</p>
+</script>
