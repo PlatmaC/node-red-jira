@@ -1,3 +1,4 @@
+const axios = require("axios")
 /**
  * @typedef {Object} Pagination
  * @property {number} page
@@ -29,14 +30,14 @@ async function apiGetPagination (integration, url, queryObject, pagination) {
   let hasMore = true
   let result = []
   while (hasMore) {
-    const res = await fetch(`${integration.apiUrl}${url}?${queryString}&limit=${limit}&page=${page}`, {
+    const res = await axios(`${integration.apiUrl}${url}?${queryString}&limit=${limit}&page=${page}`, {
       method: 'GET',
       headers: {
         "Authorization": `token ${integration.apiKey}`,
         "Content-Type": "application/json",
       }
     })
-    if (!res.ok) {
+    if (res.status!=200) {
       throw new Error(`Request failed: ${res.status} ${res.statusText}`);
     }
     const data = await res.json();
@@ -51,22 +52,21 @@ async function apiGetPagination (integration, url, queryObject, pagination) {
 
 
 async function apiGet (server, url, queryObject) {
-
   let fetchUrl = `${server.apiUrl}/rest/api/2/${url}`
   if (queryObject) {
     fetchUrl += `?${new URLSearchParams(queryObject).toString()}`
   }
-  const res = await fetch(fetchUrl, {
+  const res = await axios(fetchUrl, {
     method: 'GET',
     headers: {
       "Authorization": 'Basic ' + Buffer.from(server.apiEmail + ":" + server.apiKey).toString('base64'),
       "Content-Type": "application/json",
     }
   })
-  if (!res.ok) {
+  if (res.status!=200) {
     throw new Error(`Request failed: ${res.status} ${res.statusText}`);
   }
-  return await res.json();
+  return await res.data;
 }
 
 
@@ -76,24 +76,45 @@ async function apiPut (server, url, queryData, bodyData) {
   if (queryData) {
     fetchUrl += `?${new URLSearchParams(queryData).toString()}`
   }
-
-  const res = await fetch(fetchUrl, {
+  const res = await axios(fetchUrl, {
     method: 'PUT',
     headers: {
       "Authorization": 'Basic ' + Buffer.from(server.apiEmail + ":" + server.apiKey).toString('base64'),
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(bodyData)
+    data: JSON.stringify(bodyData)
   })
-  if (!res.ok) {
+  if (res.status!=200) {
     throw new Error(`Request failed: ${res.status} ${res.statusText}`);
   }
-  return await res.json();
+  return await res.data;
+}
+
+async function apiPost (server, url, queryData, bodyData) {
+
+  let fetchUrl = `${server.apiUrl}/rest/api/2/${url}`
+  if (queryData) {
+    fetchUrl += `?${new URLSearchParams(queryData).toString()}`
+  }
+
+  const res = await axios(fetchUrl, {
+    method: 'POST',
+    headers: {
+      "Authorization": 'Basic ' + Buffer.from(server.apiEmail + ":" + server.apiKey).toString('base64'),
+      "Content-Type": "application/json",
+    },
+    data: JSON.stringify(bodyData)
+  })
+  if (res.status!=201) {
+    throw new Error(`Request failed: ${res.status} ${res.statusText}`);
+  }
+  return await res.data;
 }
 
 
 module.exports = {
   apiGet,
   apiGetPagination,
-  apiPut
+  apiPut,
+  apiPost
 }

@@ -1,12 +1,11 @@
 <script type="text/javascript">
-  RED.nodes.registerType('jira-edit-issue', {
+  RED.nodes.registerType('jira-add-issue', {
     category: 'Jira',
     color: '#0C66E6',
     icon: 'jira.svg',
     defaults: {
       name: {value: null},
       server: {value: "", type: "jira-server", required: true},
-      issue: {value: ""},
       fields: {value: null},
       properties: {value: null},
       historyMetadata: {value: null},
@@ -16,13 +15,13 @@
     inputs: 1,
     outputs: 2,
     label: function () {
-      return this.name || "edit issue";
+      return this.name || "add issue";
     },
-    paletteLabel: 'edit issue'
+    paletteLabel: 'add issue'
   });
 </script>
 
-<script type="text/html" data-template-name="jira-edit-issue">
+<script type="text/html" data-template-name="jira-add-issue">
   <div class="form-row">
     <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
     <input type="text" id="node-input-name" placeholder="Name">
@@ -34,11 +33,6 @@
   </div>
 
   <hr />
-
-  <div class="form-row">
-    <label for="node-input-issue"><i class="fa fa-hashtag"></i> Issue</label>
-    <input type="text" id="node-input-issue" placeholder="msg.issue">
-  </div>
 
   <div class="form-row">
     <label for="node-input-fields"><i class="fa fa-hashtag"></i> Fields</label>
@@ -60,10 +54,9 @@
     <input type="text" id="node-input-update" placeholder="msg.update">
   </div>
 
-
 </script>
 
-<script type="text/html" data-help-name="jira-edit-issue">
+<script type="text/html" data-help-name="jira-add-issue">
   <h3>Details</h3>
   <p>Edits an issue. Issue properties may be updated as part of the edit. Please note that issue transition will be ignored as it is not supported yet.</p>
 
