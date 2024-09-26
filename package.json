@@ -1,6 +1,6 @@
 {
   "name": "@platmac/node-red-jira-api",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Node-RED Jira API nodes",
   "engines": {
     "node": ">=16.0.0",

@@ -1,12 +1,6 @@
 Fork of the node-red-contrib-jiira-api package.
 [node-red-contrib-jiira-api repository](https://github.com/Boohja/node-red-contrib-jira-api.git)
 
-# node-red-contrib-jira-api
-[Atlassian Jira API v2](https://developer.atlassian.com/cloud/jira/platform/rest/v2/intro/#about) nodes for [Node-RED](https://nodered.org/).\
-In contrast to other packages, this one does not rely on the users actual password but an access token.
-
-You need an Atlassian Jira access token to use these nodes.
-
 ## Features
 Add new, update and retrieve issues on jira.
 
@@ -25,6 +19,11 @@ red` on Linux, `%APPDATA%\node-red` on Windows):
 ```bash
 npm install node-red-jira-api
 ``` 
+
+# Jira API connection
+In contrast to other packages, this one does not rely on the users actual password but an access token.
+
+You need an Atlassian Jira access token to use these nodes.
 
 ## List nodes
 
